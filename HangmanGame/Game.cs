@@ -81,8 +81,9 @@ namespace HangmanGame
         }
         public string GenerateWord()
         {
-            var words = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("HangmanGame.Words.txt")).ReadToEnd().Replace("\r\n", "\n").Split('\n');
-            return words[new Random().Next() % words.Length].ToLower();
+            var words = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("HangmanGame.Words.txt")).ReadToEnd().Replace("\r\n", "\n").Split('\n')
+                .Where(word => word.Length > 3).ToList();
+            return words[new Random().Next() % words.Count].ToLower();
         }
     }
 }
